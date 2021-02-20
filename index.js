@@ -38,10 +38,37 @@ Airplane.prototype.land = function () {
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
+console.log('Task 1');
+function Person(name, age){
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+} 
 
-function Person() {
-
+Person.prototype.eat = function(edible){
+  if(this.stomach.length < 10){
+    this.stomach.push(edible);
+  } else{
+    return this.poop();
+  }
+  return this.stomach;
 }
+
+Person.prototype.poop = function(){
+  this.stomach = [];
+}
+
+Person.prototype.toString = function(){
+  return `${this.name}, ${this.age}`;
+}
+
+let personOne = new Person('Shazeen', 27);
+console.log(personOne)
+console.log(personOne.eat('Popcorn'));
+console.log(personOne.eat('tea'));
+console.log(personOne.eat('pizza'));
+console.log(personOne.eat('Popcorn'));
+console.log(personOne.stomach);
 
 /*
   TASK 2
@@ -56,10 +83,26 @@ function Person() {
     - STRETCH: A car which runs out of `fuel` while driving can't drive any more distance:
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
-
-function Car() {
-
+console.log('Task 2');
+function Car(model,milesPerGallon) {
+  this.tank = 0,
+  this.odometer = 0
 }
+
+Car.prototype.fill = function(gallon){
+  return this.tank+= gallon;
+}
+
+Car.prototype.drive = function(distance){
+  return this.odometer+= distance;
+}
+
+let toyotaCar = new Car('Rav4',24);
+let hondaCar = new Car('Civic',24);
+toyotaCar.fill(9);
+toyotaCar.drive(20);
+console.log(toyotaCar)
+console.log(hondaCar);
 
 /*
   TASK 3
@@ -68,15 +111,27 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+console.log('Task 3');
+function Baby(name, age) {
+  Person.call(this, name, age);
+  this.favoriteToy = 'trains'
+}
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function(){
+  return `${this.name} likes to play with ${this.favoriteToy}`
 }
 
+let babyOne = new Baby('Alma', 9);
+console.log(babyOne);
+console.log(babyOne.name);
+console.log(babyOne.play());
+
+console.log('Task 4');
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
+  1. This refers to the what it belongs to.
   2. 
   3. 
   4. 
